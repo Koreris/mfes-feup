@@ -1,0 +1,30 @@
+class Product
+types
+		public String = seq of char;
+		public Range::
+			lower: nat
+			separator: char
+			upper: nat1
+			indicator: char
+			inv range == range.lower < range.upper
+			    and range.upper < 24
+			    and range.separator = '-';
+			    --and (range.indicator = 'Y' or range.indicator = 'M');
+				
+values
+-- TODO Define values here
+instance variables
+				private category : String;
+				private ageRange : Range;
+				private brand : String;
+				private detail : String;
+				private price : real;
+				private gender : char := ' '; -- se category = clothing
+				
+operations
+-- TODO Define operations here
+functions
+-- TODO Define functiones here
+traces
+-- TODO Define Combinatorial Test Traces here
+end Product

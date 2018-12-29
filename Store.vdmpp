@@ -8,7 +8,10 @@ instance variables
 				private inventory : set of Product;
 				private transactions: seq of Transaction;
 operations
--- TODO Define operations here
+		private addTransaction: Transaction ==> ()
+		addTransaction(trans) == (
+			transactions := [trans] ^ transactions;
+		);
 functions
 -- TODO Define functiones here
 traces

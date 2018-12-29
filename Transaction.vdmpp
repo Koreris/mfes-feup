@@ -1,16 +1,26 @@
 class Transaction
 types
--- TODO Define types here
+		public type = <buy> | <sell> 
+			inv type == type = <buy> or type = <sell>;
 values
 -- TODO Define values here
 instance variables
 			private client : Client;
 			private store : Store;
 			private product : Product;
-			private type : bool; -- 0 : compra, 1 : venda
+			private transactionType : type;
 			private value : int;
 operations
--- TODO Define operations here
+		public Transaction: Client * Store * Product * type * int ==> Transaction
+		Transaction(cli, str, prdt, t, val) == (
+			client := cli;
+			store := str;
+			product := prdt;
+			transactionType := t;
+			value := val;
+			return self)
+			
+			
 functions
 -- TODO Define functiones here
 traces

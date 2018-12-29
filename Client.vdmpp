@@ -1,0 +1,14 @@
+class Client
+types
+		public String = seq of char;
+values
+-- TODO Define values here
+instance variables
+			private name : String;
+operations
+-- TODO Define operations here
+functions
+-- TODO Define functiones here
+traces
+-- TODO Define Combinatorial Test Traces here
+end Client

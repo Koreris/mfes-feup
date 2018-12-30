@@ -18,7 +18,7 @@ operations
 			product := prdt;
 			transactionType := t;
 			value := val;
-			return self)
+			return self);
 			
 			
 functions

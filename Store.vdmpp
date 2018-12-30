@@ -8,10 +8,21 @@ instance variables
 				private inventory : set of Product;
 				private transactions: seq of Transaction;
 operations
+		
+		public Store: seq1 of char * set of Product * seq of Transaction ==> Store
+		Store(string, products, trans) == (
+			location := string;
+			inventory := products;
+			transactions := trans;
+			return self);
+		
 		private addTransaction: Transaction ==> ()
 		addTransaction(trans) == (
 			transactions := [trans] ^ transactions;
 		);
+		
+	
+		
 functions
 -- TODO Define functiones here
 traces

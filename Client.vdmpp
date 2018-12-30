@@ -6,7 +6,10 @@ values
 instance variables
 			private name : String;
 operations
--- TODO Define operations here
+		public Client: seq1 of char ==> Client
+		Client(string) == (
+			name := string;
+			return self);
 functions
 -- TODO Define functiones here
 traces

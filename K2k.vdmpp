@@ -1,0 +1,40 @@
+class K2k
+types
+
+values
+-- TODO Define values here
+instance variables
+				private store : Store;
+				private product1 : Product := new Product("toy", "zippo", "carro", 5, 'M');
+				private product2 : Product := new Product("toy", "zippo", "boneca", 5, 'F');
+				private product3 : Product := new Product("toy", "zippo", "asdasd", 5, 'M');
+				private products : set of Product;
+				private trans: seq of Transaction;
+				
+operations
+			public main: () ==> ()
+			main() ==
+			(
+				init();
+				
+			);
+			
+			
+			public init : () ==> ()
+			init() ==
+			(
+			
+				--Product(stringCat, stringBrand, stringDetail, value, genderChar) 				
+				products := {product1} union products;
+				products := {product2} union products;
+				products := {product3} union products;
+				
+				--Store(string, products, trans)
+				store := new Store("Porto", products, trans);
+			
+			);
+functions
+-- TODO Define functiones here
+traces
+-- TODO Define Combinatorial Test Traces here
+end K2k

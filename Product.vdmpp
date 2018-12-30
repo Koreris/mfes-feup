@@ -22,7 +22,14 @@ instance variables
 				private gender : char := ' '; -- se category = clothing
 				
 operations
--- TODO Define operations here
+			public Product: seq1 of char * seq1 of char * seq1 of char * real * char ==> Product
+				Product(stringCat, stringBrand, stringDetail, value, genderChar) == (
+				category := stringCat;
+				brand := stringBrand;
+				detail := stringDetail;
+				price := value;
+				gender := genderChar;
+				return self);
 functions
 -- TODO Define functiones here
 traces

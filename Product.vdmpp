@@ -23,7 +23,7 @@ operations
 			public Product: String * Range * String * String * real * char ==> Product
 				Product(stringCat, range, stringBrand, stringDetail, value, genderChar) == (
 				category := stringCat;
-				ageRange := Range;
+				ageRange := range;
 				brand := stringBrand;
 				detail := stringDetail;
 				price := value;

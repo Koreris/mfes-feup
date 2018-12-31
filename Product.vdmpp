@@ -3,13 +3,11 @@ types
 		public String = seq of char;
 		public Range::
 			lower: nat
-			separator: char
 			upper: nat1
 			indicator: char
 			inv range == range.lower < range.upper
-			    and range.upper < 24
-			    and range.separator = '-';
-			    --and (range.indicator = 'Y' or range.indicator = 'M');
+			    and (range.upper < 18 and range.indicator = 'Y')
+			    or (range.upper < 25 and range.indicator = 'M');
 				
 values
 -- TODO Define values here
@@ -19,12 +17,13 @@ instance variables
 				private brand : String;
 				private detail : String;
 				private price : real;
-				private gender : char := ' '; -- se category = clothing
+				private gender : char; -- se category = clothing
 				
 operations
-			public Product: seq1 of char * seq1 of char * seq1 of char * real * char ==> Product
-				Product(stringCat, stringBrand, stringDetail, value, genderChar) == (
+			public Product: String * Range * String * String * real * char ==> Product
+				Product(stringCat, range, stringBrand, stringDetail, value, genderChar) == (
 				category := stringCat;
+				ageRange := Range;
 				brand := stringBrand;
 				detail := stringDetail;
 				price := value;

@@ -5,9 +5,12 @@ values
 -- TODO Define values here
 instance variables
 				private store : Store;
-				private product1 : Product := new Product("toy", "zippo", "carro", 5, 'M');
-				private product2 : Product := new Product("toy", "zippo", "boneca", 5, 'F');
-				private product3 : Product := new Product("toy", "zippo", "asdasd", 5, 'M');
+				private range1 : Product`Range := mk_Product`Range(10, 12, 'Y');
+				private range2 : Product`Range := mk_Product`Range(5, 8, 'M');
+				private range3 : Product`Range := mk_Product`Range(8, 9, 'Y');
+				private product1 : Product := new Product("toy", range1, "zippo", "carro", 5, 'M');
+				private product2 : Product := new Product("toy", range2, "zippo", "boneca", 5, 'F');
+				private product3 : Product := new Product("toy", range3, "zippo", "casaco", 5, 'M');
 				private products : set of Product;
 				private trans: seq of Transaction;
 				
@@ -30,7 +33,7 @@ operations
 				products := {product3} union products;
 				
 				--Store(string, products, trans)
-				store := new Store("Porto", products, trans);
+				store := new Store("Porto", products, trans, 100.0);
 			
 			);
 functions

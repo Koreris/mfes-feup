@@ -1,0 +1,10 @@
+class K2KTest
+instance variables
+			k2k : K2k := new K2k();
+operations
+-- TODO Define operations here
+functions
+-- TODO Define functiones here
+traces
+-- TODO Define Combinatorial Test Traces here
+end K2KTest

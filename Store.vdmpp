@@ -7,13 +7,16 @@ instance variables
 				private location : String;
 				private inventory : set of Product;
 				private transactions: seq of Transaction;
+				private balance: real;
+				
 operations
 		
-		public Store: seq1 of char * set of Product * seq of Transaction ==> Store
-		Store(string, products, trans) == (
+		public Store: String * set of Product * seq of Transaction * real ==> Store
+		Store(string, products, trans, bal) == (
 			location := string;
 			inventory := products;
 			transactions := trans;
+			balance := bal;
 			return self);
 		
 		private addTransaction: Transaction ==> ()

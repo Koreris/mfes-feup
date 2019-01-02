@@ -11,14 +11,14 @@ instance variables
 				private product1 : Product := new Product("toy", range1, "zippo", "carro", 5, 'M');
 				private product2 : Product := new Product("toy", range2, "zippo", "boneca", 5, 'F');
 				private product3 : Product := new Product("toy", range3, "zippo", "casaco", 5, 'M');
-				private products : set of Product;
-				private trans: seq of Transaction;
+				private products : set of Product := {};
+				private trans: seq of Transaction := [];
 				
 operations
-			public main: () ==> ()
+			public static main: () ==> ()
 			main() ==
 			(
-				init();
+				new K2k().init();
 				
 			);
 			
@@ -31,7 +31,8 @@ operations
 				products := {product1} union products;
 				products := {product2} union products;
 				products := {product3} union products;
-				
+				IO`print("Products: "); 
+				IO`print(products); 
 				--Store(string, products, trans)
 				store := new Store("Porto", products, trans, 100.0);
 			

@@ -29,6 +29,10 @@ operations
 				price := value;
 				gender := genderChar;
 				return self);
+				
+			public getCategory : () ==> String
+			getCategory() == return category;
+				
 functions
 -- TODO Define functiones here
 traces

@@ -4,7 +4,7 @@ types
 values
 -- TODO Define values here
 instance variables
-				private store : Store;
+				private store : Store;  -- TODO: set of Store ?
 				private range1 : Product`Range := mk_Product`Range(10, 12, 'Y');
 				private range2 : Product`Range := mk_Product`Range(5, 8, 'M');
 				private range3 : Product`Range := mk_Product`Range(8, 9, 'Y');
@@ -13,6 +13,7 @@ instance variables
 				private product3 : Product := new Product("toy", range3, "zippo", "casaco", 5, 'M');
 				private products : set of Product := {};
 				private trans: seq of Transaction := [];
+				
 				
 operations
 			public static main: () ==> ()
@@ -26,7 +27,10 @@ operations
 			public init : () ==> ()
 			init() ==
 			(
-			
+				dcl client1 : Client := new Client("Ze");
+				dcl trans1: Transaction ;
+				
+				
 				--Product(stringCat, stringBrand, stringDetail, value, genderChar) 				
 				products := {product1} union products;
 				products := {product2} union products;
@@ -35,8 +39,15 @@ operations
 				IO`print(products); 
 				--Store(string, products, trans)
 				store := new Store("Porto", products, trans, 100.0);
-			
+				--Transaction(cli, str, prdt, t, val)
+				trans1 := new Transaction(client1, store, product1, <buy>, 10);
+				store.addTransaction(trans1);
+				IO`print("\nSTORE TRANSACTION: ");
+				IO`print(store.getTransactions()(1));
+				
 			);
+			
+
 functions
 -- TODO Define functiones here
 traces

@@ -6,7 +6,7 @@ values
 instance variables
 			private name : String;
 operations
-		public Client: seq1 of char ==> Client
+		public Client: String ==> Client
 		Client(string) == (
 			name := string;
 			return self);

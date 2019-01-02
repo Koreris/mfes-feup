@@ -19,10 +19,20 @@ operations
 			balance := bal;
 			return self);
 		
-		private addTransaction: Transaction ==> ()
+		public addTransaction: Transaction ==> ()
 		addTransaction(trans) == (
 			transactions := [trans] ^ transactions;
+			--TODO: IF <BUY> CHECK IF PRODUCT EXISTS
+			--TODO: REMOVE/ADD PRODUCT FROM INVENTORY
 		);
+		
+		
+		
+		public getLocation : () ==> String
+			getLocation() == return location;
+			
+		public getTransactions : () ==> seq of Transaction
+			getTransactions() == return transactions;
 		
 	
 		

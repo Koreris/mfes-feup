@@ -35,15 +35,11 @@ operations
 				products := {product1} union products;
 				products := {product2} union products;
 				products := {product3} union products;
-				IO`print("Products: "); 
-				IO`print(products); 
 				--Store(string, products, trans)
 				store := new Store("Porto", products, trans, 100.0);
 				--Transaction(cli, str, prdt, t, val)
 				trans1 := new Transaction(client1, store, product1, <buy>, 10);
 				store.addTransaction(trans1);
-				IO`print("\nSTORE TRANSACTION: ");
-				IO`print(store.getTransactions()(1));
 				
 			);
 			

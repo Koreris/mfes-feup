@@ -21,6 +21,13 @@ operations
 			return self);
 			
 			
+		public getType : () ==> type
+			getType() == return transactionType;
+			
+		public getProduct : () ==> Product
+			getProduct() == return product;
+			
+			
 functions
 -- TODO Define functiones here
 traces

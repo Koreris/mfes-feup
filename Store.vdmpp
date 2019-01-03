@@ -22,18 +22,19 @@ operations
 		public addTransaction: Transaction ==> ()
 		addTransaction(trans) == (
 		
-			--TODO: IF <BUY> CHECK IF PRODUCT EXISTS
 			if trans.getType() = <buy> then(
 					if trans.getProduct() in set inventory then(
 						transactions := [trans] ^ transactions;
-						IO`print("PRODUCT IN INVENTORY");
-					)
-					else(
-						IO`print("PRODUCT NOT IN INVENTORY");
-					);
+						balance := balance + trans.getValue();
+						inventory := inventory \ {trans.getProduct()};
+					); 		
+			)
+			else(
+				transactions := [trans] ^ transactions;
+				inventory := {trans.getProduct()} union inventory;
 			);
 				
-			--TODO: REMOVE/ADD PRODUCT FROM INVENTORY
+			
 		);
 		
 		

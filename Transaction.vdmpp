@@ -27,6 +27,9 @@ operations
 		public getProduct : () ==> Product
 			getProduct() == return product;
 			
+		public getValue : () ==> int
+			getValue() == return value;
+			
 			
 functions
 -- TODO Define functiones here

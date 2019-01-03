@@ -11,7 +11,7 @@ instance variables
 				private product1 : Product := new Product("toy", range1, "zippo", "carro", 5, 'M');
 				private product2 : Product := new Product("toy", range2, "zippo", "boneca", 5, 'F');
 				private product3 : Product := new Product("toy", range3, "zippo", "casaco", 5, 'M');
-				private products : set of Product := {};
+				private inventory : set of Product := {};
 				private trans: seq of Transaction := [];
 				
 				
@@ -32,11 +32,11 @@ operations
 				
 				
 				--Product(stringCat, stringBrand, stringDetail, value, genderChar) 				
-				products := {product1} union products;
-				products := {product2} union products;
-				products := {product3} union products;
+				inventory := {product1} union inventory;
+				inventory := {product2} union inventory;
+				inventory := {product3} union inventory;
 				--Store(string, products, trans)
-				store := new Store("Porto", products, trans, 100.0);
+				store := new Store("Porto", inventory, trans, 100.0);
 				--Transaction(cli, str, prdt, t, val)
 				trans1 := new Transaction(client1, store, product1, <buy>, 10);
 				store.addTransaction(trans1);

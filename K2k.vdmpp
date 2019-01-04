@@ -8,9 +8,12 @@ instance variables
 				private range1 : Product`Range := mk_Product`Range(10, 12, 'Y');
 				private range2 : Product`Range := mk_Product`Range(5, 8, 'M');
 				private range3 : Product`Range := mk_Product`Range(8, 9, 'Y');
-				private product1 : Product := new Product("toy", range1, "zippo", "carro", 5, 'M');
-				private product2 : Product := new Product("toy", range2, "zippo", "boneca", 5, 'F');
-				private product3 : Product := new Product("toy", range3, "zippo", "casaco", 5, 'M');
+				private price1 : Product`Price := mk_Product`Price(7);
+				private price2 : Product`Price := mk_Product`Price(4);
+				private price3 : Product`Price := mk_Product`Price(15);
+				private product1 : Product := new Product("toy", range1, "zippo", "carro", price1, 'M');
+				private product2 : Product := new Product("toy", range2, "zippo", "boneca", price2, 'F');
+				private product3 : Product := new Product("toy", range3, "zippo", "casaco", price3, 'M');
 				private inventory : set of Product := {};
 				private trans: seq of Transaction := [];
 				

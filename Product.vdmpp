@@ -8,6 +8,9 @@ types
 			inv range == range.lower < range.upper
 			    and (range.upper < 18 and range.indicator = 'Y')
 			    or (range.upper < 25 and range.indicator = 'M');
+		public Price:: 
+			value: real
+			inv price == price.value > 0;      
 				
 values
 -- TODO Define values here
@@ -16,11 +19,11 @@ instance variables
 				private ageRange : Range;
 				private brand : String;
 				private detail : String;
-				private price : real;
+				private price : Price;
 				private gender : char; -- se category = clothing
 				
 operations
-			public Product: String * Range * String * String * real * char ==> Product
+			public Product: String * Range * String * String * Price * char ==> Product
 				Product(stringCat, range, stringBrand, stringDetail, value, genderChar) == (
 				category := stringCat;
 				ageRange := range;
@@ -29,9 +32,26 @@ operations
 				price := value;
 				gender := genderChar;
 				return self);
-				
-			public getCategory : () ==> String
+			
+			-------------------------------------- GETTERS START
+			public pure getCategory : () ==> String
 			getCategory() == return category;
+			
+			public pure getAgeRange : () ==> Range
+			getAgeRange() == return ageRange;
+			
+			public pure getBrand : () ==> String
+			getBrand() == return brand;
+			
+			public pure getDetail : () ==> String
+			getDetail() == return detail;
+			
+			public pure getPrice : () ==> Price
+			getPrice() == return price;
+			
+			public pure getGender : () ==> char
+			getGender() == return gender;
+			-------------------------------------- GETTERS END
 				
 functions
 -- TODO Define functiones here

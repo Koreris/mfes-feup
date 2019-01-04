@@ -10,6 +10,7 @@ instance variables
 			private product : Product;
 			private transactionType : type;
 			private value : int;
+			
 operations
 		public Transaction: Client * Store * Product * type * int ==> Transaction
 		Transaction(cli, str, prdt, t, val) == (
@@ -20,14 +21,14 @@ operations
 			value := val;
 			return self);
 			
-			
-		public getType : () ==> type
+			--storecut, clientcut...
+		public pure getType : () ==> type
 			getType() == return transactionType;
 			
-		public getProduct : () ==> Product
+		public pure getProduct : () ==> Product
 			getProduct() == return product;
 			
-		public getValue : () ==> int
+		public pure getValue : () ==> int
 			getValue() == return value;
 			
 			

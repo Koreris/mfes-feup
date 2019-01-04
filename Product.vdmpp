@@ -10,12 +10,14 @@ types
 			    or (range.upper < 25 and range.indicator = 'M');
 		public Price:: 
 			value: real
-			inv price == price.value > 0;      
+			inv price == price.value > 0;   
+		public Category = <toy> | <clothing> | <gear> 
+			inv category == category = <toy> or category = <clothing> or category = <gear>;   
 				
 values
 -- TODO Define values here
 instance variables
-				private category : String;
+				private category : Category;
 				private ageRange : Range;
 				private brand : String;
 				private detail : String;
@@ -23,9 +25,9 @@ instance variables
 				private gender : char; -- se category = clothing
 				
 operations
-			public Product: String * Range * String * String * Price * char ==> Product
-				Product(stringCat, range, stringBrand, stringDetail, value, genderChar) == (
-				category := stringCat;
+			public Product: Category * Range * String * String * Price * char ==> Product
+				Product(cat, range, stringBrand, stringDetail, value, genderChar) == (
+				category := cat;
 				ageRange := range;
 				brand := stringBrand;
 				detail := stringDetail;
@@ -34,7 +36,7 @@ operations
 				return self);
 			
 			-------------------------------------- GETTERS START
-			public pure getCategory : () ==> String
+			public pure getCategory : () ==> Category
 			getCategory() == return category;
 			
 			public pure getAgeRange : () ==> Range

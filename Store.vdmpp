@@ -26,27 +26,27 @@ operations
 					if trans.getProduct() in set inventory then(
 						transactions := [trans] ^ transactions;
 						balance := balance + trans.getValue();
-						removeFromInv(trans.getProduct());
+						removeFromInv({trans.getProduct()});
 					); 		
 			)
 			else(
 				balance := balance - trans.getValue();
 				transactions := [trans] ^ transactions;
-				addToInv(trans.getProduct());
+				addToInv({trans.getProduct()});
 			);
 				
 			
 		);
 		
 		
-		public addToInv : Product ==> ()
-		addToInv(product) == (
-			inventory := {product} union inventory;
+		public addToInv : set of Product ==> ()
+		addToInv(products) == (
+			inventory := products union inventory;
 		);
 		
-		public removeFromInv : Product ==> ()
-		removeFromInv(product) == (
-			inventory := inventory \ {product};
+		public removeFromInv : set of Product ==> ()
+		removeFromInv(products) == (
+			inventory := inventory \ products;
 		);
 		
 		

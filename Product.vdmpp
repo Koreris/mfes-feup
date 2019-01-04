@@ -52,6 +52,9 @@ operations
 			public pure getGender : () ==> char
 			getGender() == return gender;
 			-------------------------------------- GETTERS END
+			
+			public setPrice : real ==> ()
+			setPrice(margin) == price.value := price.value+(price.value*margin);
 				
 functions
 -- TODO Define functiones here

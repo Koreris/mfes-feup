@@ -9,14 +9,17 @@ instance variables
 				private transactions: seq of Transaction;
 				private balance: real;
 				inv balance >= 0;
+				private storeMargin : real;
+				inv storeMargin > 0 and storeMargin < 100;
 				
 operations	
-		public Store: String * set of Product * seq of Transaction * real ==> Store
-		Store(string, products, trans, bal) == (
+		public Store: String * set of Product * seq of Transaction * real * real ==> Store
+		Store(string, products, trans, bal, marg) == (
 			location := string;
 			inventory := products;
 			transactions := trans;
 			balance := bal;
+			storeMargin := marg;
 			return self);
 		
 		public addTransaction: Transaction ==> ()
@@ -25,16 +28,17 @@ operations
 			if trans.getType() = <buy> then(
 						transactions := [trans] ^ transactions;
 						balance := balance + trans.getValue();
-						removeFromInv({trans.getProduct()});
+						removeFromInv(trans.getProducts());
 					) 		
 			else if trans.getType() = <sell> then(
 				balance := balance - trans.getValue();
 				transactions := [trans] ^ transactions;
-				addToInv({trans.getProduct()});
+				for all p in set trans.getProducts() do (p.setPrice(storeMargin));
+				addToInv(trans.getProducts());
 			)
 		)
 		pre balance - trans.getValue() >= 0 and 
-				((trans.getType() = <buy> and trans.getProduct() in set inventory) or 
+				((trans.getType() = <buy> and trans.getProducts() subset inventory) or 
 				trans.getType() = <sell>)
 		post balance <> balance~ and 
 				 transactions = transactions~ ^ [trans]

@@ -7,16 +7,16 @@ values
 instance variables
 			private client : Client;
 			private store : Store;
-			private product : Product;
+			private products : set of Product;
 			private transactionType : type;
 			private value : int;
 			
 operations
-		public Transaction: Client * Store * Product * type * int ==> Transaction
+		public Transaction: Client * Store * set of Product * type * int ==> Transaction
 		Transaction(cli, str, prdt, t, val) == (
 			client := cli;
 			store := str;
-			product := prdt;
+			products := prdt;
 			transactionType := t;
 			value := val;
 			return self);
@@ -25,8 +25,8 @@ operations
 		public pure getType : () ==> type
 			getType() == return transactionType;
 			
-		public pure getProduct : () ==> Product
-			getProduct() == return product;
+		public pure getProducts : () ==> set of Product
+			getProducts() == return products;
 			
 		public pure getValue : () ==> int
 			getValue() == return value;

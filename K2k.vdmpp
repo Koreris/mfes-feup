@@ -23,7 +23,6 @@ operations
 			main() ==
 			(
 				new K2k().init();
-				
 			);
 			
 			
@@ -33,15 +32,12 @@ operations
 				dcl client1 : Client := new Client("Ze");
 				dcl trans1: Transaction ;
 				
-				
 				--Product(stringCat, stringBrand, stringDetail, value, genderChar) 				
-				inventory := {product1} union inventory;
-				inventory := {product2} union inventory;
-				inventory := {product3} union inventory;
+				inventory := {product1, product2, product3} union inventory;
 				--Store(string, products, trans)
-				store := new Store("Porto", inventory, trans, 100.0);
+				store := new Store("Porto", inventory, trans, 100.0, 20);
 				--Transaction(cli, str, prdt, t, val)
-				trans1 := new Transaction(client1, store, product1, <buy>, 10);
+				trans1 := new Transaction(client1, store, {product1}, <buy>, 10);
 				store.addTransaction(trans1);
 				
 			);

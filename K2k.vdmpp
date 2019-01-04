@@ -4,7 +4,12 @@ types
 values
 -- TODO Define values here
 instance variables
-				private store : Store;  -- TODO: set of Store ?
+				private stores : set of Store := {};
+				inv not exists l1, l2 in set stores & 
+						l1 <> l2 and l1.getID() = l2.getID(); 
+				private store1 : Store := new Store(1, "Porto", inventory, trans, 100.0, 10);
+				private store2 : Store := new Store(2, "Vila Real", inventory, trans, 150.0, 15);
+				private store3 : Store := new Store(3, "Braga", inventory, trans, 80.0, 20);
 				private range1 : Product`Range := mk_Product`Range(10, 12, 'Y');
 				private range2 : Product`Range := mk_Product`Range(5, 8, 'M');
 				private range3 : Product`Range := mk_Product`Range(8, 9, 'Y');
@@ -16,7 +21,6 @@ instance variables
 				private product3 : Product := new Product(<clothing>, range3, "zippo", "casaco", price3, 'M');
 				private inventory : set of Product := {};
 				private trans: seq of Transaction := [];
-				
 				
 operations
 			public static main: () ==> ()
@@ -34,11 +38,11 @@ operations
 				
 				--Product(stringCat, stringBrand, stringDetail, value, genderChar) 				
 				inventory := {product1, product2, product3} union inventory;
-				--Store(string, products, trans)
-				store := new Store("Porto", inventory, trans, 100.0, 20);
+				--Store(string, products, trans, cut)
+				stores := {store1, store2, store3};
 				--Transaction(cli, str, prdt, t, val)
-				trans1 := new Transaction(client1, store, {product1}, <buy>, 10);
-				store.addTransaction(trans1);
+				trans1 := new Transaction(client1, store2, {product1}, <buy>, 10);
+				store2.addTransaction(trans1);
 				
 			);
 			

@@ -7,9 +7,7 @@ instance variables
 				private stores : set of Store := {};
 				inv not exists l1, l2 in set stores & 
 						l1 <> l2 and l1.getID() = l2.getID(); 
-				private store1 : Store := new Store(1, "Porto", inventory, trans, 100.0, 10);
-				private store2 : Store := new Store(2, "Vila Real", inventory, trans, 150.0, 15);
-				private store3 : Store := new Store(3, "Braga", inventory, trans, 80.0, 20);
+				
 				private range1 : Product`Range := mk_Product`Range(10, 12, 'Y');
 				private range2 : Product`Range := mk_Product`Range(5, 8, 'M');
 				private range3 : Product`Range := mk_Product`Range(8, 9, 'Y');
@@ -19,8 +17,12 @@ instance variables
 				private product1 : Product := new Product(<toy>, range1, "zippo", "carro", price1, 'M');
 				private product2 : Product := new Product(<toy>, range2, "zippo", "boneca", price2, 'F');
 				private product3 : Product := new Product(<clothing>, range3, "zippo", "casaco", price3, 'M');
-				private inventory : set of Product := {};
+				private inventory : set of Product := {product1, product2, product3};
 				private trans: seq of Transaction := [];
+				private store1 : Store := new Store(1, "Porto", inventory, trans, 100.0, 10);
+				private store2 : Store := new Store(2, "Vila Real", inventory, trans, 150.0, 15);
+				private store3 : Store := new Store(3, "Braga", inventory, trans, 80.0, 20);
+
 				
 operations
 			public static main: () ==> ()
@@ -37,13 +39,31 @@ operations
 				dcl trans1: Transaction ;
 				
 				--Product(stringCat, stringBrand, stringDetail, value, genderChar) 				
-				inventory := {product1, product2, product3} union inventory;
+				
 				--Store(string, products, trans, cut)
 				stores := {store1, store2, store3};
 				--Transaction(cli, str, prdt, t, val)
 				trans1 := new Transaction(client1, store2, {product1}, <buy>);
 				store2.addTransaction(trans1);
-				
+			
+			);
+			
+			--returns the store(s) with the most sales
+			public mostSales : () ==> set of Store
+			mostSales() ==
+			(
+				dcl max : int := 0;
+				dcl maxStores: set of Store := {};
+				for all store in set stores do (
+					if len store.getTransactions() >= max then(
+						if len store.getTransactions() > max then(
+							max := len store.getTransactions();
+							maxStores := {};
+						);
+						maxStores := {store} union maxStores;
+					);
+				);
+				return maxStores;
 			);
 			
 

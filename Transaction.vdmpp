@@ -29,7 +29,13 @@ operations
 			getProducts() == return products;
 			
 		public pure getValue : () ==> int
-			getValue() == return value;
+			getValue() == (
+				dcl ret : int := 0;
+				for all p in set products do (
+					 ret :=  ret + p.getPrice().value;
+				);
+				return ret;
+			);
 			
 			
 functions

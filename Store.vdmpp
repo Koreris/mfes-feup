@@ -4,6 +4,7 @@ types
 values
 -- TODO Define values here
 instance variables
+				private id : nat1;
 				private location : String;
 				private inventory : set of Product;
 				private transactions: seq of Transaction;
@@ -13,8 +14,9 @@ instance variables
 				inv storeMargin > 0 and storeMargin < 100;
 				
 operations	
-		public Store: String * set of Product * seq of Transaction * real * real ==> Store
-		Store(string, products, trans, bal, marg) == (
+		public Store: nat1 * String * set of Product * seq of Transaction * real * real ==> Store
+		Store(storeid, string, products, trans, bal, marg) == (
+			id := storeid;
 			location := string;
 			inventory := products;
 			transactions := trans;
@@ -59,6 +61,9 @@ operations
 			
 		public pure getTransactions : () ==> seq of Transaction
 			getTransactions() == return transactions;
+		
+		public pure getID : () ==> nat1
+			getID() == return id;
 		
 functions
 -- TODO Define functiones here

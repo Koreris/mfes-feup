@@ -41,7 +41,7 @@ operations
 				--Store(string, products, trans, cut)
 				stores := {store1, store2, store3};
 				--Transaction(cli, str, prdt, t, val)
-				trans1 := new Transaction(client1, store2, {product1}, <buy>, 10);
+				trans1 := new Transaction(client1, store2, {product1}, <buy>);
 				store2.addTransaction(trans1);
 				
 			);

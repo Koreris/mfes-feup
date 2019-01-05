@@ -12,13 +12,16 @@ instance variables
 			private value : int;
 			
 operations
-		public Transaction: Client * Store * set of Product * type * int ==> Transaction
-		Transaction(cli, str, prdt, t, val) == (
+		public Transaction: Client * Store * set of Product * type ==> Transaction
+		Transaction(cli, str, prdt, t) == (
+			value := 0;
 			client := cli;
 			store := str;
 			products := prdt;
 			transactionType := t;
-			value := val;
+			for all p in set prdt do (
+					 value :=  value + p.getPrice().value;
+				);
 			return self);
 			
 			--storecut, clientcut...
@@ -31,9 +34,7 @@ operations
 		public pure getValue : () ==> int
 			getValue() == (
 				dcl ret : int := 0;
-				for all p in set products do (
-					 ret :=  ret + p.getPrice().value;
-				);
+				
 				return ret;
 			);
 			

@@ -93,6 +93,26 @@ operations
 				return len store.getTransactions();
 			);
 			
+			--returns stores ordered by balance (bubbleSort)
+			public balanceList : () ==> seq of Store
+			balanceList() ==
+			(
+					dcl sorted_list : seq of Store := [];
+					
+					for all store in set stores do(
+						sorted_list := sorted_list ^ [store];
+					);
+					
+					for i = len sorted_list to 1 by -1 do
+						for j = 1 to i-1 do
+							if sorted_list(j).getBalance() < sorted_list(j+1).getBalance()
+								then (dcl temp:Store := sorted_list(j);
+								sorted_list(j) := sorted_list(j+1);
+								sorted_list(j+1) := temp
+							);
+					return sorted_list
+				);
+				
 			
 			
 

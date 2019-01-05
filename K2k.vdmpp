@@ -37,7 +37,6 @@ operations
 			(
 				dcl client1 : Client := new Client("Ze");
 				dcl trans1: Transaction ;
-				
 				--Product(stringCat, stringBrand, stringDetail, value, genderChar) 				
 				
 				--Store(string, products, trans, cut)
@@ -45,7 +44,10 @@ operations
 				--Transaction(cli, str, prdt, t, val)
 				trans1 := new Transaction(client1, store2, {product1}, <buy>);
 				store2.addTransaction(trans1);
+				store1.addTransaction(trans1);
+				
 			
+				
 			);
 			
 			--returns the store(s) with the most sales
@@ -58,6 +60,24 @@ operations
 					if len store.getTransactions() >= max then(
 						if len store.getTransactions() > max then(
 							max := len store.getTransactions();
+							maxStores := {};
+						);
+						maxStores := {store} union maxStores;
+					);
+				);
+				return maxStores;
+			);
+			
+			--returns the store(s) with the highest balance
+			public highestBalance : () ==> set of Store
+			highestBalance() ==
+			(
+				dcl max : real := 0;
+				dcl maxStores: set of Store := {};
+				for all store in set stores do (
+					if store.getBalance() >= max then(
+						if store.getBalance() > max then(
+							max := store.getBalance();
 							maxStores := {};
 						);
 						maxStores := {store} union maxStores;

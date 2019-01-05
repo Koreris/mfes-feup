@@ -39,9 +39,11 @@ operations
 				addToInv(trans.getProducts());
 			)
 		)
-		pre balance - trans.getValue() >= 0 and 
-				((trans.getType() = <buy> and trans.getProducts() subset inventory) or 
-				trans.getType() = <sell>)
+		pre (balance - trans.getValue() >= 0 and 
+				trans.getType() = <sell>) or
+				(trans.getType() = <buy> and 
+				trans.getProducts() subset inventory)
+				
 		post balance <> balance~ and 
 				 transactions = transactions~ ^ [trans]
 		;
@@ -61,6 +63,10 @@ operations
 			
 		public pure getTransactions : () ==> seq of Transaction
 			getTransactions() == return transactions;
+			
+			
+		public pure getBalance : () ==> real
+			getBalance() == return balance;
 		
 		public pure getID : () ==> nat1
 			getID() == return id;

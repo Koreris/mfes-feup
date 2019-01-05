@@ -50,16 +50,16 @@ operations
 				
 			);
 			
-			--returns the store(s) with the most sales
+			--returns the store(s) with the most transactions
 			public mostSales : () ==> set of Store
 			mostSales() ==
 			(
 				dcl max : int := 0;
 				dcl maxStores: set of Store := {};
 				for all store in set stores do (
-					if len store.getTransactions() >= max then(
-						if len store.getTransactions() > max then(
-							max := len store.getTransactions();
+					if numTransactions(store) >= max then(
+						if numTransactions(store) > max then(
+							max := numTransactions(store);
 							maxStores := {};
 						);
 						maxStores := {store} union maxStores;
@@ -85,6 +85,15 @@ operations
 				);
 				return maxStores;
 			);
+			
+			--returns the number of transactions of a store
+			public numTransactions : Store ==> int
+			numTransactions(store) ==
+			(
+				return len store.getTransactions();
+			);
+			
+			
 			
 
 functions

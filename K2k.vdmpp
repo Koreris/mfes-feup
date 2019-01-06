@@ -242,11 +242,11 @@ operations
 				return avg;
 			);
 			
-			public productSearch: Product`Category * Product`Range * Product`String * char ==> ()
+			public productSearch: Product`Category * Product`Range * Product`String * char ==> map Store to Product
 			productSearch(cat, age, brand, gender) == (
 			
-			dcl results : set of Product := {};
-			
+			dcl results : map Store to Product:= {|->};
+
 			for all store in set stores do(
 				for all prdct in set store.getInventory() do(
 					if(prdct.getCategory() = cat 
@@ -254,22 +254,17 @@ operations
 						and prdct.getBrand() = brand 
 						and (prdct.getGender() = gender or prdct.getGender() = 'N'))
 					then(
-						results := {prdct} union results; 
+						results := results munion {store |-> prdct}; 
 					)
 				)
-			)
+			);
+			return results;
 	)
 	pre (cat <> nil
 			and age <> mk_Product`Range(0,1,' ')
 			and brand <> " "
-			and gender <> ' ')	
+			and gender <> ' ')
 	;
-				
-				
-				
-			
-			
-
 functions
 -- TODO Define functiones here
 traces

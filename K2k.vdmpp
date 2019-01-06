@@ -53,7 +53,7 @@ operations
 				
 			);
 			
-			--returns the store(s) with the most transactions
+			--returns the store(s) with the most total transactions
 			public mostSales : () ==> set of Store
 			mostSales() ==
 			(
@@ -63,6 +63,42 @@ operations
 					if numTransactions(store) >= max then(
 						if numTransactions(store) > max then(
 							max := numTransactions(store);
+							maxStores := {};
+						);
+						maxStores := {store} union maxStores;
+					);
+				);
+				return maxStores;
+			);
+			
+			--returns the store(s) with the most <buy> transactions
+			public mostBuys : () ==> set of Store
+			mostBuys() ==
+			(
+				dcl max : int := 0;
+				dcl maxStores: set of Store := {};
+				for all store in set stores do (
+					if numBuys(store) >= max then(
+						if numBuys(store) > max then(
+							max := numBuys(store);
+							maxStores := {};
+						);
+						maxStores := {store} union maxStores;
+					);
+				);
+				return maxStores;
+			);
+			
+			--returns the store(s) with the most <sell> transactions
+			public mostSells : () ==> set of Store
+			mostSells() ==
+			(
+				dcl max : int := 0;
+				dcl maxStores: set of Store := {};
+				for all store in set stores do (
+					if numSells(store) >= max then(
+						if numSells(store) > max then(
+							max := numSells(store);
 							maxStores := {};
 						);
 						maxStores := {store} union maxStores;

@@ -48,9 +48,6 @@ operations
 				store2.addTransaction(trans1);
 				store2.addTransaction(trans2);
 				store1.addTransaction(trans1);
-				
-				
-				
 			);
 			
 			--returns the store(s) with the most total transactions
@@ -152,129 +149,121 @@ operations
 					return sortedStores
 				);
 				
+			--returns the number of <buy> of a store
+			public numBuys : Store ==> int
+			numBuys(store) ==
+			(
+				dcl num : int := 0;
+				dcl transactions : seq of Transaction := store.getTransactions();
 				
-				
-				--returns the number of <buy> of a store
-				public numBuys : Store ==> int
-				numBuys(store) ==
-				(
-					dcl num : int := 0;
-					dcl transactions : seq of Transaction := store.getTransactions();
-					
-					for transaction in transactions do (
-						if transaction.getType() = <buy> then
-							num := num + 1;
-					
-					);
-				
-					
-					return num;
+				for transaction in transactions do (
+					if transaction.getType() = <buy> then
+						num := num + 1;
 				
 				);
+				return num;
+			);
+			
+			--returns the number of <sell> of a store
+			public numSells : Store ==> int
+			numSells(store) ==
+			(
+				dcl num : int := 0;
+				dcl transactions : seq of Transaction := store.getTransactions();
 				
-				--returns the number of <sell> of a store
-				public numSells : Store ==> int
-				numSells(store) ==
-				(
-					dcl num : int := 0;
-					dcl transactions : seq of Transaction := store.getTransactions();
-					
-					for transaction in transactions do (
-						if transaction.getType() = <sell> then
-							num := num + 1;
-					
-					);
-				
-					
-					return num;
+				for transaction in transactions do (
+					if transaction.getType() = <sell> then
+						num := num + 1;
+				);
+				return num;
+			);
+			
+			--returns number of <buy> on entire chain
+			public totalBuys : () ==> int
+			totalBuys() ==
+			(
+				dcl num : int := 0;
+				for all store in set stores do (
+					num := num + numBuys(store);
+				);
+				return num;
+			);
+			
+			--returns number of <sell> on entire chain
+			public totalSells : () ==> int
+			totalSells() ==
+			(
+				dcl num : int := 0;
+				for all store in set stores do (
+					num := num + numSells(store);
+				);
+				return num;
+			);
+			
+			--returns transactions of a store
+			public getTransactions : Store ==> seq of Transaction
+			getTransactions(store) ==
+			(
+				return store.getTransactions();
+			);
+			
+			--returns the average <buy> price of a store
+			public avgBuy : Store ==> real
+			avgBuy(store) ==
+			(
+				dcl avg : real := 0;
+				dcl num : int := 0;
+				dcl transactions : seq of Transaction := store.getTransactions();
+				for transaction in transactions do (
+					if transaction.getType() = <buy> then(
+						num := num + 1;
+						avg := avg + transaction.getValue();
+					)
+				);
+				avg := avg / num;
+				return avg;
+			);
+			
+			--returns the average <sell> price of a store
+			public avgSell : Store ==> real
+			avgSell(store) ==
+			(
+				dcl avg : real := 0;
+				dcl num : int := 0;
+				dcl transactions : seq of Transaction := store.getTransactions();
+				for transaction in transactions do (
+					if transaction.getType() = <sell> then(
+						num := num + 1;
+						avg := avg + transaction.getValue();
+					)
 				
 				);
-				
-				--returns number of <buy> on entire chain
-				public totalBuys : () ==> int
-				totalBuys() ==
-				(
-					dcl num : int := 0;
-					
-					for all store in set stores do (
-						num := num + numBuys(store);
-					
-					);
-					
-					return num;
-				
-				);
-				
-				--returns number of <sell> on entire chain
-				public totalSells : () ==> int
-				totalSells() ==
-				(
-					dcl num : int := 0;
-					
-					for all store in set stores do (
-						num := num + numSells(store);
-					
-					);
-					
-					return num;
-				
-				);
-				
-				
-				--returns transactions of a store
-				public getTransactions : Store ==> seq of Transaction
-				getTransactions(store) ==
-				(
-					return store.getTransactions();
-				
-				);
-				
-				
-				--returns the average <buy> price of a store
-				public avgBuy : Store ==> real
-				avgBuy(store) ==
-				(
-					dcl avg : real := 0;
-					dcl num : int := 0;
-					
-					dcl transactions : seq of Transaction := store.getTransactions();
-					
-					for transaction in transactions do (
-						if transaction.getType() = <buy> then(
-							num := num + 1;
-							avg := avg + transaction.getValue();
-						)
-					
-					);
-					
-					avg := avg / num;
-					
-					return avg;
-				
-				);
-				
-				--returns the average <sell> price of a store
-				public avgSell : Store ==> real
-				avgSell(store) ==
-				(
-					dcl avg : real := 0;
-					dcl num : int := 0;
-					
-					dcl transactions : seq of Transaction := store.getTransactions();
-					
-					for transaction in transactions do (
-						if transaction.getType() = <sell> then(
-							num := num + 1;
-							avg := avg + transaction.getValue();
-						)
-					
-					);
-					
-					avg := avg / num;
-					
-					return avg;
-				
-				);
+				avg := avg / num;
+				return avg;
+			);
+			
+			public productSearch: Product`Category * Product`Range * Product`String * char ==> ()
+			productSearch(cat, age, brand, gender) == (
+			
+			dcl results : set of Product := {};
+			
+			for all store in set stores do(
+				for all prdct in set store.getInventory() do(
+					if(prdct.getCategory() = cat 
+						and prdct.getAgeRange() = age
+						and prdct.getBrand() = brand 
+						and (prdct.getGender() = gender or prdct.getGender() = 'N'))
+					then(
+						results := {prdct} union results; 
+					)
+				)
+			)
+	)
+	pre (cat <> nil
+			and age <> mk_Product`Range(0,1,' ')
+			and brand <> " "
+			and gender <> ' ')	
+	;
 				
 				
 				

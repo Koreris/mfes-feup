@@ -67,6 +67,9 @@ operations
 			
 		public pure getBalance : () ==> real
 			getBalance() == return balance;
+			
+		public pure getInventory : () ==> set of Product
+			getInventory() == return inventory;
 		
 		public pure getID : () ==> nat1
 			getID() == return id;

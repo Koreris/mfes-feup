@@ -22,7 +22,7 @@ instance variables
 				private brand : String;
 				private detail : String;
 				private price : Price;
-				private gender : char; -- se category = clothing
+				private gender : char;
 				
 operations
 			public Product: Category * Range * String * String * Price * char ==> Product

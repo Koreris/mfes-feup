@@ -7,47 +7,21 @@ instance variables
 				private stores : set of Store := {};
 				inv not exists l1, l2 in set stores & 
 						l1 <> l2 and l1.getID() = l2.getID(); 
-				
-				private range1 : Product`Range := mk_Product`Range(10, 12, 'Y');
-				private range2 : Product`Range := mk_Product`Range(5, 8, 'M');
-				private range3 : Product`Range := mk_Product`Range(8, 9, 'Y');
-				private price1 : Product`Price := mk_Product`Price(7);
-				private price2 : Product`Price := mk_Product`Price(4);
-				private price3 : Product`Price := mk_Product`Price(15);
-				private product1 : Product := new Product(<toy>, range1, "zippo", "carro", price1, 'M');
-				private product2 : Product := new Product(<toy>, range2, "zippo", "boneca", price2, 'F');
-				private product3 : Product := new Product(<clothing>, range3, "zippo", "casaco", price3, 'M');
-				private inventory : set of Product := {product1, product2, product3};
-				private trans: seq of Transaction := [];
-				private store1 : Store := new Store(1, "Porto", inventory, trans, 100.0, 10);
-				private store2 : Store := new Store(2, "Vila Real", inventory, trans, 150.0, 15);
-				private store3 : Store := new Store(3, "Braga", inventory, trans, 80.0, 20);
+				private store1 : Store := new Store(1, "Porto", 100.0, 10);
+				private store2 : Store := new Store(2, "Vila Real", 150.0, 15);
+				private store3 : Store := new Store(3, "Braga", 80.0, 20);
 
 				
 operations
-			public static main: () ==> ()
-			main() ==
-			(
-				new K2k().init();
+			public K2k: () ==> K2k
+			K2k() == (
+				stores := {};
+			return self
 			);
 			
-			
-			public init : () ==> ()
-			init() ==
-			(
-				dcl client1 : Client := new Client("Ze");
-				dcl trans1: Transaction ;
-				dcl trans2: Transaction ;
-				--Product(stringCat, stringBrand, stringDetail, value, genderChar) 				
-				
-				--Store(string, products, trans, cut)
-				stores := {store1, store2, store3};
-				--Transaction(cli, str, prdt, t, val)
-				trans1 := new Transaction(client1, store1, {product1}, <buy>);
-				trans2 := new Transaction(client1, store2, {product2}, <buy>);
-				store2.addTransaction(trans1);
-				store2.addTransaction(trans2);
-				store1.addTransaction(trans1);
+			public addStore : (Store) ==> ()
+			addStore(store) == (
+				stores := stores union {store}; 
 			);
 			
 			--returns the store(s) with the most total transactions

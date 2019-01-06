@@ -14,12 +14,12 @@ instance variables
 				inv storeMargin > 0 and storeMargin < 100;
 				
 operations	
-		public Store: nat1 * String * set of Product * seq of Transaction * real * real ==> Store
-		Store(storeid, string, products, trans, bal, marg) == (
+		public Store: nat1 * String * real * real ==> Store
+		Store(storeid, string, bal, marg) == (
 			id := storeid;
 			location := string;
-			inventory := products;
-			transactions := trans;
+			inventory := {};
+			transactions := [];
 			balance := bal;
 			storeMargin := marg;
 			return self);

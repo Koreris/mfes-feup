@@ -37,16 +37,19 @@ operations
 			(
 				dcl client1 : Client := new Client("Ze");
 				dcl trans1: Transaction ;
+				dcl trans2: Transaction ;
 				--Product(stringCat, stringBrand, stringDetail, value, genderChar) 				
 				
 				--Store(string, products, trans, cut)
 				stores := {store1, store2, store3};
 				--Transaction(cli, str, prdt, t, val)
-				trans1 := new Transaction(client1, store2, {product1}, <buy>);
+				trans1 := new Transaction(client1, store1, {product1}, <buy>);
+				trans2 := new Transaction(client1, store2, {product2}, <buy>);
 				store2.addTransaction(trans1);
+				--store2.addTransaction(trans2);
 				store1.addTransaction(trans1);
 				
-			
+				
 				
 			);
 			
@@ -97,21 +100,147 @@ operations
 			public balanceList : () ==> seq of Store
 			balanceList() ==
 			(
-					dcl sorted_list : seq of Store := [];
+					dcl sortedStores : seq of Store := [];
 					
 					for all store in set stores do(
-						sorted_list := sorted_list ^ [store];
+						sortedStores := sortedStores ^ [store];
 					);
 					
-					for i = len sorted_list to 1 by -1 do
+					for i = len sortedStores to 1 by -1 do
 						for j = 1 to i-1 do
-							if sorted_list(j).getBalance() < sorted_list(j+1).getBalance()
-								then (dcl temp:Store := sorted_list(j);
-								sorted_list(j) := sorted_list(j+1);
-								sorted_list(j+1) := temp
+							if sortedStores(j).getBalance() < sortedStores(j+1).getBalance()
+								then (dcl temp:Store := sortedStores(j);
+								sortedStores(j) := sortedStores(j+1);
+								sortedStores(j+1) := temp
 							);
-					return sorted_list
+					return sortedStores
 				);
+				
+				
+				
+				--returns the number of <buy> of a store
+				public numBuys : Store ==> int
+				numBuys(store) ==
+				(
+					dcl num : int := 0;
+					dcl transactions : seq of Transaction := store.getTransactions();
+					
+					for transaction in transactions do (
+						if transaction.getType() = <buy> then
+							num := num + 1;
+					
+					);
+				
+					
+					return num;
+				
+				);
+				
+				--returns the number of <sell> of a store
+				public numSells : Store ==> int
+				numSells(store) ==
+				(
+					dcl num : int := 0;
+					dcl transactions : seq of Transaction := store.getTransactions();
+					
+					for transaction in transactions do (
+						if transaction.getType() = <sell> then
+							num := num + 1;
+					
+					);
+				
+					
+					return num;
+				
+				);
+				
+				--returns number of <buy> on entire chain
+				public totalBuys : () ==> int
+				totalBuys() ==
+				(
+					dcl num : int := 0;
+					
+					for all store in set stores do (
+						num := num + numBuys(store);
+					
+					);
+					
+					return num;
+				
+				);
+				
+				--returns number of <sell> on entire chain
+				public totalSells : () ==> int
+				totalSells() ==
+				(
+					dcl num : int := 0;
+					
+					for all store in set stores do (
+						num := num + numSells(store);
+					
+					);
+					
+					return num;
+				
+				);
+				
+				
+				--returns transactions of a store
+				public getTransactions : Store ==> seq of Transaction
+				getTransactions(store) ==
+				(
+					return store.getTransactions();
+				
+				);
+				
+				
+				--returns the average <buy> price of a store
+				public avgBuy : Store ==> real
+				avgBuy(store) ==
+				(
+					dcl avg : real := 0;
+					dcl num : int := 0;
+					
+					dcl transactions : seq of Transaction := store.getTransactions();
+					
+					for transaction in transactions do (
+						if transaction.getType() = <buy> then(
+							num := num + 1;
+							avg := avg + transaction.getValue();
+						)
+					
+					);
+					
+					avg := avg / num;
+					
+					return avg;
+				
+				);
+				
+				--returns the average <sell> price of a store
+				public avgSell : Store ==> real
+				avgSell(store) ==
+				(
+					dcl avg : real := 0;
+					dcl num : int := 0;
+					
+					dcl transactions : seq of Transaction := store.getTransactions();
+					
+					for transaction in transactions do (
+						if transaction.getType() = <sell> then(
+							num := num + 1;
+							avg := avg + transaction.getValue();
+						)
+					
+					);
+					
+					avg := avg / num;
+					
+					return avg;
+				
+				);
+				
+				
 				
 			
 			

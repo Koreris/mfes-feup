@@ -46,7 +46,7 @@ operations
 				trans1 := new Transaction(client1, store1, {product1}, <buy>);
 				trans2 := new Transaction(client1, store2, {product2}, <buy>);
 				store2.addTransaction(trans1);
-				--store2.addTransaction(trans2);
+				store2.addTransaction(trans2);
 				store1.addTransaction(trans1);
 				
 				

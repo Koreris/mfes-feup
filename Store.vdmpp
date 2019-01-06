@@ -28,7 +28,7 @@ operations
 		addTransaction(trans) == (
 		
 			if trans.getType() = <buy> then(
-						transactions := [trans] ^ transactions;
+						transactions := transactions ^ [trans];
 						balance := balance + trans.getValue();
 						removeFromInv(trans.getProducts());
 					) 		

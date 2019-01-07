@@ -9,7 +9,7 @@ instance variables
 			private store : Store;
 			private products : set of Product;
 			private transactionType : type;
-			private value : int;
+			private value : real;
 			
 operations
 		public Transaction: Client * Store * set of Product * type ==> Transaction
@@ -31,7 +31,7 @@ operations
 		public pure getProducts : () ==> set of Product
 			getProducts() == return products;
 			
-		public pure getValue : () ==> int
+		public pure getValue : () ==> real
 			getValue() == return value;
 			
 			

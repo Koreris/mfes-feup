@@ -1,19 +1,23 @@
 class Store
+
 types
+		-- a type that represents a String, by using a sequence of char
 		public String = seq of char;
-values
--- TODO Define values here
+
 instance variables
-				private id : nat1;
-				private location : String;
-				private inventory : set of Product;
-				private transactions: seq of Transaction;
-				private balance: real;
-				inv balance >= 0;
-				private storeMargin : real;
-				inv storeMargin > 0 and storeMargin < 100;
+		-- a store is characterised by an id, its location, its inventory (set of products), 
+		-- its transactions, its balance and its margin
+		private id : nat1;
+		private location : String;
+		private inventory : set of Product;
+		private transactions: seq of Transaction;
+		private balance: real;
+		inv balance >= 0;
+		private storeMargin : real;
+		inv storeMargin > 0 and storeMargin < 100;
 				
 operations	
+		-- CONSTRUCTOR
 		public Store: nat1 * String * real * real ==> Store
 		Store(storeid, string, bal, marg) == (
 			id := storeid;
@@ -24,6 +28,15 @@ operations
 			storeMargin := marg;
 			return self);
 		
+		-- operation to ADD A TRANSACTION and make sure all the constraints are respected
+		-- if the transaction is of the type client buys, the balance is increased, the 
+		-- transaction added to the store's seq of transactions, and the item removed from
+		-- the inventory
+		-- if the transaction is of the type client sells, then the transaction only occurs
+		-- if the precondition that the balance has to be at least as high as the product's price
+		-- is satisfied, and if so the product is then added to the inventory
+		-- when a transaction occurs, the balance cant be the same as before the transaction, nor
+		-- can the seq of transactions remain the same 
 		public addTransaction: Transaction ==> ()
 		addTransaction(trans) == (
 		
@@ -48,16 +61,19 @@ operations
 				 transactions = transactions~ ^ [trans]
 		;
 		
+		-- adds a set of product to inventory
 		public addToInv : set of Product ==> ()
 		addToInv(products) == (
 			inventory := products union inventory;
 		);
 		
+		-- removes a set of product to an inventory
 		public removeFromInv : set of Product ==> ()
 		removeFromInv(products) == (
 			inventory := inventory \ products;
 		);
 		
+		-- GETTERS
 		public pure getLocation : () ==> String
 			getLocation() == return location;
 			
@@ -74,8 +90,4 @@ operations
 		public pure getID : () ==> nat1
 			getID() == return id;
 		
-functions
--- TODO Define functiones here
-traces
--- TODO Define Combinatorial Test Traces here
 end Store

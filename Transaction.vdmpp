@@ -1,17 +1,22 @@
 class Transaction
+
 types
+		-- this type identifies the type of transaction, which can only
+		-- be buy (client buys) or sell (client sells)
 		public type = <buy> | <sell> 
 			inv type == type = <buy> or type = <sell>;
-values
--- TODO Define values here
+
 instance variables
-			private client : Client;
-			private store : Store;
-			private products : set of Product;
-			private transactionType : type;
-			private value : real;
+		-- a transaction is characterised by the client and store involved, as well as
+		-- the set of products, the type of transaction and its total value
+		private client : Client;
+		private store : Store;
+		private products : set of Product;
+		private transactionType : type;
+		private value : real;
 			
 operations
+    -- CONSTRUCTOR
 		public Transaction: Client * Store * set of Product * type ==> Transaction
 		Transaction(cli, str, prdt, t) == (
 			value := 0;
@@ -23,8 +28,8 @@ operations
 					 value :=  value + p.getPrice().value;
 				);
 			return self);
-			
-			--storecut, clientcut...
+		
+		-- GETTERS	
 		public pure getType : () ==> type
 			getType() == return transactionType;
 			
@@ -33,10 +38,5 @@ operations
 			
 		public pure getValue : () ==> real
 			getValue() == return value;
-			
-			
-functions
--- TODO Define functiones here
-traces
--- TODO Define Combinatorial Test Traces here
+
 end Transaction

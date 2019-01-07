@@ -1,6 +1,14 @@
 class Product
+
 types
+		-- a type that represents a String, by using a sequence of char
 		public String = seq of char;
+		
+		-- a type to represent an age range, in the format A-BX, where A is the lower bound
+		-- of the age range, B is the upper bound and X can be either Y (for years) or M (for
+		-- months of age); the lower bound is always inferior to the upper bound, and in the
+		-- of years the maximum is 17 (this is a kid focused store), and in case its months the
+		-- maximum is 24. 
 		public Range::
 			lower: nat
 			upper: nat1
@@ -8,14 +16,17 @@ types
 			inv range == range.lower < range.upper
 			    and (range.upper < 18 and range.indicator = 'Y')
 			    or (range.upper < 25 and range.indicator = 'M');
+			    
+		-- a type that represents a Price, which is always bigger from 0
 		public Price:: 
 			value: real
 			inv price == price.value > 0;   
+			
+		-- a type that represents a category of the K2K products, which can be toys, clothing
+		-- or gear
 		public Category = <toy> | <clothing> | <gear> 
 			inv category == category = <toy> or category = <clothing> or category = <gear>;   
-				
-values
--- TODO Define values here
+
 instance variables
 				private category : Category;
 				private ageRange : Range;
@@ -25,6 +36,7 @@ instance variables
 				private gender : char;
 				
 operations
+			-- CONSTRUCTOR
 			public Product: Category * Range * String * String * Price * char ==> Product
 				Product(cat, range, stringBrand, stringDetail, value, genderChar) == (
 				category := cat;
@@ -35,7 +47,7 @@ operations
 				gender := genderChar;
 				return self);
 			
-			-------------------------------------- GETTERS START
+			-- GETTERS
 			public pure getCategory : () ==> Category
 			getCategory() == return category;
 			
@@ -53,13 +65,9 @@ operations
 			
 			public pure getGender : () ==> char
 			getGender() == return gender;
-			-------------------------------------- GETTERS END
 			
+			-- this operation sets the new price of items according to the store's margin
 			public setPrice : real ==> ()
 			setPrice(margin) == price.value := price.value+(price.value*margin);
 				
-functions
--- TODO Define functiones here
-traces
--- TODO Define Combinatorial Test Traces here
 end Product

@@ -2,7 +2,10 @@ class K2KTest is subclass of MyTestCase
 
 instance variables
 	k2k : K2k := new K2k();
+
 operations
+	-- creates the chain with several stores in different locations, 
+	-- verifies if the total created corresponds to the length of the dinner pot
 	public createChain: () ==> ()
 		createChain() == (
 			k2k.addStore(new Store(1, "Porto", 100.0, 20));
@@ -11,6 +14,7 @@ operations
 			assertEqual(card k2k.getStores(), 3);
 		);
 	
+	-- tests the transaction sell of a client
 	public clientSellTransaction: () ==> ()
 		clientSellTransaction() == (
 			dcl store : Store := new Store(4, "Lisboa", 100.0, 20);
@@ -31,6 +35,7 @@ operations
 			assertEqual(store.getTransactions(), oldTrans ^ [transactionSell]); 
 		);
 		
+	-- tests the transaction buy of a client
 	public clientBuyTransaction: () ==> ()
 		clientBuyTransaction() == (
 			dcl store : Store := new Store(5, "Braga", 100.0, 20);
@@ -49,6 +54,7 @@ operations
 			assertEqual(store.getTransactions(), oldTrans ^ [transactionBuy]); 
 		);
 		
+	-- main entry point for the run configuration
 	public static main: () ==> () 
 	main() ==
    (

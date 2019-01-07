@@ -7,10 +7,6 @@ instance variables
 				private stores : set of Store := {};
 				inv not exists l1, l2 in set stores & 
 						l1 <> l2 and l1.getID() = l2.getID(); 
-				private store1 : Store := new Store(1, "Porto", 100.0, 10);
-				private store2 : Store := new Store(2, "Vila Real", 150.0, 15);
-				private store3 : Store := new Store(3, "Braga", 80.0, 20);
-
 				
 operations
 			public K2k: () ==> K2k
@@ -23,6 +19,9 @@ operations
 			addStore(store) == (
 				stores := stores union {store}; 
 			);
+			
+			public getStores : () ==> set of Store
+			getStores() == (return stores);
 			
 			--returns the store(s) with the most total transactions
 			public mostSales : () ==> set of Store

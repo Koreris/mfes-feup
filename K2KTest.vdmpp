@@ -48,11 +48,12 @@ operations
 			assertEqual(store.getTransactions(), oldTrans ^ [transactionBuy]); 
 		);
 		
-		main() ==
-     (
-     	 new K2KTest().createChain();
-     	 new K2KTest().clientSellTransaction();
-     	 new K2KTest().clientBuyTransaction();
-      );
+	public static main: () ==> () 
+	main() ==
+   (
+   	 new K2KTest().createChain();
+   	 new K2KTest().clientSellTransaction();
+   	 new K2KTest().clientBuyTransaction();
+    );
 		
 end K2KTest

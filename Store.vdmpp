@@ -47,7 +47,7 @@ operations
 					) 		
 			else if trans.getType() = <sell> then(
 				balance := balance - trans.getValue();
-				transactions := [trans] ^ transactions;
+				transactions := transactions ^ [trans];
 				for all p in set trans.getProducts() do (p.setPrice(storeMargin));
 				addToInv(trans.getProducts());
 			)

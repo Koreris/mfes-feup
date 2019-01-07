@@ -1,10 +1,51 @@
-class K2KTest
+class K2KTest is subclass of MyTestCase
+
 instance variables
-			k2k : K2k := new K2k();
+	k2k : K2k := new K2k();
 operations
--- TODO Define operations here
-functions
--- TODO Define functiones here
-traces
--- TODO Define Combinatorial Test Traces here
+	public createChain: () ==> ()
+		createChain() == (
+			k2k.addStore(new Store(1, "Porto", 100.0, 20));
+			k2k.addStore(new Store(2, "Lagos", 150.50, 25));
+			k2k.addStore(new Store(3, "Braganca", 115, 15));
+			assertEqual(card k2k.getStores(), 3);
+		);
+	
+	public clientSellTransaction: () ==> ()
+		clientSellTransaction() == (
+			dcl store : Store := iota x in set k2k.getStores() & x.getID()=2;
+			dcl oldBalance : real := store.getBalance();
+			dcl oldTrans : seq of Transaction := store.getTransactions();
+			dcl client : Client := new Client("Joana");
+			dcl range1 : Product`Range := mk_Product`Range(10, 12, 'Y');
+			dcl price1 : Product`Price := mk_Product`Price(7.50);
+			dcl range2 : Product`Range := mk_Product`Range(8, 9, 'Y');
+			dcl price2 : Product`Price := mk_Product`Price(17.0);
+			dcl produto1 : Product := new Product(<toy>, range1, "zippa", "carro", price1, 'M');
+			dcl produto2 : Product := new Product(<clothing>, range2, "zippu", "casaco", price2, 'M');
+			dcl transactionSell : Transaction := new Transaction(client, store, {produto1, produto2}, <sell>);
+			store.addTransaction(transactionSell);
+			assertTrue(store.getBalance() - transactionSell.getValue() >= 0);
+			assertEqual(store.getBalance(), oldBalance - transactionSell.getValue());
+			assertEqual(store.getTransactions(), oldTrans ^ [transactionSell]); 
+		);
+		
+	public clientBuyTransaction: () ==> ()
+		clientBuyTransaction() == (
+			dcl store : Store := iota x in set k2k.getStores() & x.getID()=2;
+			dcl inventory : set of Product := store.getInventory();
+			dcl oldBalance : real := store.getBalance();
+			dcl oldTrans : seq of Transaction := store.getTransactions();
+			dcl client : Client := new Client("Alfredo");
+			dcl range1 : Product`Range := mk_Product`Range(10, 12, 'Y');
+			dcl price1 : Product`Price := mk_Product`Price(7.50);
+			dcl produto1 : Product := new Product(<toy>, range1, "zippa", "carro", price1, 'M');
+			dcl transactionBuy : Transaction := new Transaction(client, store, {produto1}, <buy>);
+			store.addToInv({produto1});
+			store.addTransaction(transactionBuy);
+			assertTrue(transactionBuy.getProducts() subset inventory);
+			assertEqual(store.getBalance(), oldBalance + transactionBuy.getValue());
+			assertEqual(store.getTransactions(), oldTrans ^ [transactionBuy]); 
+		);
+		
 end K2KTest

@@ -59,6 +59,7 @@ operations
 			assertEqual(store.getTransactions(), oldTrans ^ [transactionBuy]); 
 		);
 		
+		-- tests if the store with most sales is obtained correctly
 		public storeMostSales: () ==> ()
 			storeMostSales() == (
 			
@@ -106,6 +107,7 @@ operations
 	
 			);
 			
+			-- tests if the store with the highest balance is obtained correctly
 			public highestBalance : () ==> ()
 				highestBalance() == (
 					dcl store1 : Store := new Store(6, "Porto", 500, 25);
@@ -117,118 +119,134 @@ operations
 					k2k.addStore(store3);
 					
 					assertEqual(k2k.highestBalance(), {store1});
+			);
 				
-				);
+			-- tests if the store with the highest balance is obtained correctly
+			public bubbleSort : () ==> ()
+			bubbleSort() == (
+				dcl store1 : Store := new Store(6, "Porto", 200, 25);
+				dcl store2 : Store := new Store(7, "Faro", 600, 25);
+				dcl store3 : Store := new Store(8, "Lisboa", 300, 25);
 				
+				k2k.addStore(store1);
+				k2k.addStore(store2);
+				k2k.addStore(store3);
 				
-				public bubbleSort : () ==> ()
-				bubbleSort() == (
-					dcl store1 : Store := new Store(6, "Porto", 200, 25);
-					dcl store2 : Store := new Store(7, "Faro", 600, 25);
-					dcl store3 : Store := new Store(8, "Lisboa", 300, 25);
-					
-					k2k.addStore(store1);
-					k2k.addStore(store2);
-					k2k.addStore(store3);
-					
-					assertEqual(k2k.balanceList(), [store2, store3, store1]);
-				
-				);
-				
-				
-				public numBuysSellsAvg : () ==> ()
-				numBuysSellsAvg() == (
-					dcl store1 : Store := new Store(6, "Porto", 350, 25);
-					dcl store2 : Store := new Store(7, "Faro", 350, 25);
-					dcl store3 : Store := new Store(8, "Lisboa", 350, 25);
-					dcl inventory : set of Product := store1.getInventory();
-					dcl client : Client := new Client("Alfredo");
-					dcl client : Client := new Client("Joaquim");
-					dcl client : Client := new Client("Fernando");
-					dcl client : Client := new Client("Vitor");
-				
-					dcl range1 : Product`Range := mk_Product`Range(10, 12, 'Y');
-					dcl price1 : Product`Price := mk_Product`Price(7.50);
-					dcl produto1 : Product := new Product(<toy>, range1, "zippa", "carro", price1, 'M');
-				
-					dcl range2 : Product`Range := mk_Product`Range(10, 12, 'Y');
-					dcl price2 : Product`Price := mk_Product`Price(10.50);
-					dcl produto2 : Product := new Product(<toy>, range1, "zippa", "boneco", price2, 'M');
-				
-					dcl range3 : Product`Range := mk_Product`Range(10, 12, 'Y');
-					dcl price3 : Product`Price := mk_Product`Price(19.99);
-					dcl produto3 : Product := new Product(<toy>, range1, "zippa", "camisola", price3, 'M');
-					
-					
-					dcl range4 : Product`Range := mk_Product`Range(10, 12, 'Y');
-					dcl price4 : Product`Price := mk_Product`Price(50);
-					dcl produto4 : Product := new Product(<toy>, range1, "zippa", "camisola", price4, 'M');
-				
-					dcl transactionBuy1 : Transaction := new Transaction(client, store1, {produto1}, <buy>);
-					dcl transactionBuy2 : Transaction := new Transaction(client, store1, {produto2}, <buy>);
-					
-					
-					dcl transactionSell1 : Transaction := new Transaction(client, store2, {produto1}, <sell>);
-					dcl transactionSell2 : Transaction := new Transaction(client, store2, {produto4}, <sell>);
-					
-				
-					store1.addToInv({produto1, produto2, produto3, produto4});
-					store2.addToInv({produto1, produto2, produto3, produto4});
-					store3.addToInv({produto1, produto2, produto3, produto4});
-					
-					store1.addTransaction(transactionBuy1);
-					store1.addTransaction(transactionBuy2);
-					store2.addTransaction(transactionSell1);
-					store2.addTransaction(transactionSell2);	
-				
-					k2k.addStore(store1);
-					k2k.addStore(store2);
-					k2k.addStore(store3);
-					
-					assertEqual(k2k.totalBuys(), 2);
-					assertEqual(k2k.totalSells(), 2);
-					
-					assertEqual(k2k.avgBuy(store1), (7.50+10.5)/2 );
-					assertEqual(k2k.avgSell(store2), (7.50+50)/2 );
-					
+				assertEqual(k2k.balanceList(), [store2, store3, store1]);
 			
-				
-				);
-				
-				
-				public productSearch : () ==> ()
-				productSearch() == (
-					dcl store1 : Store := new Store(6, "Porto", 200, 25);
-					dcl inventory : set of Product := store1.getInventory();
-					
-					dcl range1 : Product`Range := mk_Product`Range(5, 12, 'Y');
-					dcl price1 : Product`Price := mk_Product`Price(7.50);
-					dcl produto1 : Product := new Product(<toy>, range1, "zippa", "carro", price1, 'M');
-				
-					dcl range2 : Product`Range := mk_Product`Range(10, 12, 'Y');
-					dcl price2 : Product`Price := mk_Product`Price(10.50);
-					dcl produto2 : Product := new Product(<toy>, range1, "zippa", "boneco", price2, 'M');
-				
-					dcl range3 : Product`Range := mk_Product`Range(10, 12, 'Y');
-					dcl price3 : Product`Price := mk_Product`Price(19.99);
-					dcl produto3 : Product := new Product(<toy>, range1, "zippa", "camisola", price3, 'M');
-					
-					dcl results : map Store to Product:= {|->};
-					results := results munion {store1 |-> produto1}; 
-					
-					store1.addToInv({produto1, produto2, produto3});
-					
-					k2k.addStore(store1);
-					
-					assertEqual(k2k.productSearch(<toy>, range1, "zippa", 'M'), results);
-					
-					
-				);
-				
-				
+			);
 			
+			public numBuysSellsAvg : () ==> ()
+			numBuysSellsAvg() == (
+				dcl store1 : Store := new Store(6, "Porto", 350, 25);
+				dcl store2 : Store := new Store(7, "Faro", 350, 25);
+				dcl store3 : Store := new Store(8, "Lisboa", 350, 25);
+				dcl inventory : set of Product := store1.getInventory();
+				dcl client : Client := new Client("Alfredo");
+				dcl client : Client := new Client("Joaquim");
+				dcl client : Client := new Client("Fernando");
+				dcl client : Client := new Client("Vitor");
+			
+				dcl range1 : Product`Range := mk_Product`Range(10, 12, 'Y');
+				dcl price1 : Product`Price := mk_Product`Price(7.50);
+				dcl produto1 : Product := new Product(<toy>, range1, "zippa", "carro", price1, 'M');
+			
+				dcl range2 : Product`Range := mk_Product`Range(10, 12, 'Y');
+				dcl price2 : Product`Price := mk_Product`Price(10.50);
+				dcl produto2 : Product := new Product(<toy>, range1, "zippa", "boneco", price2, 'M');
+			
+				dcl range3 : Product`Range := mk_Product`Range(10, 12, 'Y');
+				dcl price3 : Product`Price := mk_Product`Price(19.99);
+				dcl produto3 : Product := new Product(<toy>, range1, "zippa", "camisola", price3, 'M');
 				
-	
+				dcl range4 : Product`Range := mk_Product`Range(10, 12, 'Y');
+				dcl price4 : Product`Price := mk_Product`Price(50);
+				dcl produto4 : Product := new Product(<toy>, range1, "zippa", "camisola", price4, 'M');
+			
+				dcl transactionBuy1 : Transaction := new Transaction(client, store1, {produto1}, <buy>);
+				dcl transactionBuy2 : Transaction := new Transaction(client, store1, {produto2}, <buy>);
+				
+				dcl transactionSell1 : Transaction := new Transaction(client, store2, {produto1}, <sell>);
+				dcl transactionSell2 : Transaction := new Transaction(client, store2, {produto4}, <sell>);
+				
+				store1.addToInv({produto1, produto2, produto3, produto4});
+				store2.addToInv({produto1, produto2, produto3, produto4});
+				store3.addToInv({produto1, produto2, produto3, produto4});
+				
+				store1.addTransaction(transactionBuy1);
+				store1.addTransaction(transactionBuy2);
+				store2.addTransaction(transactionSell1);
+				store2.addTransaction(transactionSell2);	
+			
+				k2k.addStore(store1);
+				k2k.addStore(store2);
+				k2k.addStore(store3);
+				
+				assertEqual(k2k.totalBuys(), 2);
+				assertEqual(k2k.totalSells(), 2);
+				
+				assertEqual(k2k.avgBuy(store1), (7.50+10.5)/2 );
+				assertEqual(k2k.avgSell(store2), (7.50+50)/2 );
+			);
+			
+			-- tests if the results of the product search match the expected results
+			public productSearch : () ==> ()
+			productSearch() == (
+				dcl store1 : Store := new Store(6, "Porto", 200, 25);
+				dcl inventory : set of Product := store1.getInventory();
+				
+				dcl range1 : Product`Range := mk_Product`Range(5, 12, 'Y');
+				dcl price1 : Product`Price := mk_Product`Price(7.50);
+				dcl produto1 : Product := new Product(<toy>, range1, "zippa", "carro", price1, 'M');
+			
+				dcl range2 : Product`Range := mk_Product`Range(10, 12, 'Y');
+				dcl price2 : Product`Price := mk_Product`Price(10.50);
+				dcl produto2 : Product := new Product(<toy>, range1, "zippa", "boneco", price2, 'F');
+			
+				dcl range3 : Product`Range := mk_Product`Range(10, 12, 'Y');
+				dcl price3 : Product`Price := mk_Product`Price(19.99);
+				dcl produto3 : Product := new Product(<toy>, range1, "zippa", "camisola", price3, 'F');
+				
+				dcl results : map Product to Store:= {|->};
+				results := results munion {produto1 |-> store1}; 
+				
+				store1.addToInv({produto1, produto2, produto3});
+				k2k.addStore(store1);
+				assertEqual(k2k.productSearch(<toy>, range1, "zippa", 'M'), results);
+			);
+			
+		public createRepeatStore: () ==> ()
+		createRepeatStore() == (
+			k2k.addStore(new Store(1, "Porto", 100.0, 20));
+			k2k.addStore(new Store(1, "Moncao", 20.0, 40));
+			assertEqual(card k2k.getStores(), 1);
+		);
+		
+		public invalidSellTransaction: () ==> ()
+		invalidSellTransaction() == (
+			dcl store : Store := new Store(6, "Porto", 10, 25);
+			dcl client : Client := new Client("Esmeralda");
+			dcl range : Product`Range := mk_Product`Range(10, 12, 'Y');
+			dcl price : Product`Price := mk_Product`Price(20);
+			dcl produto : Product := new Product(<toy>, range, "zippa", "camisola", price, 'M');
+			dcl transaction : Transaction := new Transaction(client, store, {produto}, <sell>);
+			k2k.addStore(store);
+			store.addTransaction(transaction);
+			assertEqual(store.getTransactions(), nil);
+		);
+		
+		public invalidBuyTransaction: () ==> ()
+		invalidBuyTransaction() == (
+		dcl store : Store := new Store(6, "Porto", 100, 25);
+			dcl client : Client := new Client("Esmeralda");
+			dcl range : Product`Range := mk_Product`Range(10, 12, 'Y');
+			dcl price : Product`Price := mk_Product`Price(20);
+			dcl produto : Product := new Product(<toy>, range, "zippa", "camisola", price, 'M');
+			dcl transaction : Transaction := new Transaction(client, store, {produto}, <buy>);
+			k2k.addStore(store);
+			store.addTransaction(transaction);
+			assertEqual(store.getTransactions(), nil);
+		);
 		
 	-- main entry point for the run configuration
 	public static main: () ==> () 
@@ -241,9 +259,11 @@ operations
    	 new K2KTest().highestBalance();
    	 new K2KTest().bubbleSort();
    	 new K2KTest().numBuysSellsAvg();
-   	 --new K2KTest().productSearch();
-   	 
-   	 
+   	 new K2KTest().productSearch();
+   	 -- INVALID TESTS, RUN INDIVIDUALLY
+   	 --new K2KTest().createRepeatStore();
+   	 --new K2KTest().invalidSellTransaction();
+   	 --new K2KTest().invalidBuyTransaction();
     );
 		
 end K2KTest

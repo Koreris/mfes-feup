@@ -215,10 +215,10 @@ operations
 				return avg;
 			);
 			
-			public productSearch: Product`Category * Product`Range * Product`String * char ==> map Store to Product
+			public productSearch: Product`Category * Product`Range * Product`String * char ==> map Product to Store
 			productSearch(cat, age, brand, gender) == (
 			
-			dcl results : map Store to Product:= {|->};
+			dcl results : map Product to Store:= {|->};
 
 			for all store in set stores do(
 				for all prdct in set store.getInventory() do(
@@ -227,19 +227,14 @@ operations
 						and prdct.getBrand() = brand 
 						and (prdct.getGender() = gender or prdct.getGender() = 'N'))
 					then(
-						results := results munion {store |-> prdct}; 
+						results := results munion {prdct |-> store}; 
 					)
 				)
 			);
 			return results;
 	)
 	pre (cat <> nil
-			and age <> mk_Product`Range(0,1,' ')
 			and brand <> " "
 			and gender <> ' ')
 	;
-functions
--- TODO Define functiones here
-traces
--- TODO Define Combinatorial Test Traces here
 end K2k
